@@ -68,9 +68,9 @@ func calculation(quantity int, original string, target string) float64 {
 	case (original == "RUB" && target == "EUR"):
 		return  float64(quantity) / EUR_RUB
 	case (original == "EUR" && target == "USD"):
-		return USD_EUR * float64(quantity)	
+		return float64(quantity) / USD_EUR
 	case (original == "USD" && target == "EUR"):
-		return USD_EUR / float64(quantity)	
+		return float64(quantity) * USD_EUR	
 	case (original == "USD" && target == "RUB"):
 		return  float64(quantity) * USD_RUB	
 	case (original == "EUR" && target == "RUB"):
