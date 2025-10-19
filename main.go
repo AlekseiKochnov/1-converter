@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 const (
 	USD_EUR = 0.86
 	USD_RUB = 81.06
@@ -9,5 +7,13 @@ const (
 )
 
 func main() {
-	fmt.Print("Готово!")
+	readInput()
+}
+
+func readInput()  {
+	
+}
+
+func calculation(quantity int, original string, target string) int {
+	return 0
 }
