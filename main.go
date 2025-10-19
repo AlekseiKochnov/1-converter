@@ -1,12 +1,13 @@
 package main
 
-const(
-	USD_TO_EUR = 0.86
-	USD_TO_RUB = 81.06
-	EUR_TO_RUB = USD_TO_EUR + USD_TO_RUB
+import "fmt"
 
+const (
+	USD_EUR = 0.86
+	USD_RUB = 81.06
+	EUR_RUB = USD_EUR + USD_RUB
 )
 
 func main() {
-
+	fmt.Print("Готово!")
 }
