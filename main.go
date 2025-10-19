@@ -32,12 +32,11 @@ func readInput() {
 	}
 
 	for {
-		fmt.Print("Ввод числа: ")
-		_, err := fmt.Scan(&quantity)
+		bre := readQuantity(&quantity)
 
-		if err == nil {
+		if bre {
 			break
-		}
+		}		
 	}
 
 	for {
@@ -45,7 +44,7 @@ func readInput() {
 		fmt.Scan(&target)
 
 		if target == original {
-			continue			
+			continue
 		}
 
 		bre := inputValidation(currency, target)
@@ -64,17 +63,17 @@ func calculation(quantity int, original string, target string) float64 {
 
 	switch {
 	case (original == "RUB" && target == "USD"):
-		return  float64(quantity) / USD_RUB
+		return float64(quantity) / USD_RUB
 	case (original == "RUB" && target == "EUR"):
-		return  float64(quantity) / EUR_RUB
+		return float64(quantity) / EUR_RUB
 	case (original == "EUR" && target == "USD"):
 		return float64(quantity) / USD_EUR
 	case (original == "USD" && target == "EUR"):
-		return float64(quantity) * USD_EUR	
+		return float64(quantity) * USD_EUR
 	case (original == "USD" && target == "RUB"):
-		return  float64(quantity) * USD_RUB	
+		return float64(quantity) * USD_RUB
 	case (original == "EUR" && target == "RUB"):
-		return  float64(quantity) * EUR_RUB				
+		return float64(quantity) * EUR_RUB
 	}
 
 	return 0
@@ -85,10 +84,21 @@ func inputValidation(currency []string, curren string) bool {
 
 	for _, val := range currency {
 		if val == curren {
-			return  true
+			return true
 		}
 	}
 
 	return false
 
+}
+
+func readQuantity(quantity *int) bool {
+	fmt.Print("Ввод числа: ")
+	_, err := fmt.Scan(quantity)
+
+	if err == nil {
+		return true
+	}
+
+	return false
 }
