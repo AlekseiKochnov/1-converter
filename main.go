@@ -23,13 +23,7 @@ func readInput() {
 		fmt.Printf("Ввод исходной валюты (%s, %s, %s):", currency[0], currency[1], currency[2])
 		fmt.Scan(&original)
 
-		bre := false
-
-		for _, val := range currency {
-			if val == original {
-				bre = true
-			}
-		}
+		bre := inputValidation(currency, original)
 
 		if bre {
 			break
@@ -50,13 +44,11 @@ func readInput() {
 		fmt.Printf("Ввод целевой валюты (%s, %s, %s):", currency[0], currency[1], currency[2])
 		fmt.Scan(&target)
 
-		bre := false
-
-		for _, val := range currency {
-			if val == target && target != original {
-				bre = true
-			}
+		if target == original {
+			continue			
 		}
+
+		bre := inputValidation(currency, target)
 
 		if bre {
 			break
@@ -68,17 +60,29 @@ func readInput() {
 
 }
 
-func calculation(quantity int, original string, target string) int {
+func calculation(quantity int, original string, target string) float64 {
 
 	switch {
-	case (original == "RUB" && target == "USD") || (original == "USD" && target == "RUB"):
-		return int(USD_RUB * float64(quantity))
-	case (original == "RUB" && target == "EUR") || (original == "EUR" && target == "RUB"):
-		return int(EUR_RUB * float64(quantity))
+	case (original == "RUB" && target == "USD"):
+		return  float64(quantity) / USD_RUB
+	case (original == "RUB" && target == "EUR"):
+		return  float64(quantity) / EUR_RUB
 	case (original == "EUR" && target == "USD") || (original == "USD" && target == "EUR"):
-		return int(USD_EUR * float64(quantity))		
+		return USD_EUR * float64(quantity)		
 	}
 
 	return 0
+
+}
+
+func inputValidation(currency []string, curren string) bool {
+
+	for _, val := range currency {
+		if val == curren {
+			return  true
+		}
+	}
+
+	return false
 
 }
