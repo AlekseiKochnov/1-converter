@@ -61,20 +61,29 @@ func readInput() {
 
 func calculation(quantity int, original string, target string) float64 {
 
-	switch {
-	case (original == "RUB" && target == "USD"):
-		return float64(quantity) / USD_RUB
-	case (original == "RUB" && target == "EUR"):
-		return float64(quantity) / EUR_RUB
-	case (original == "EUR" && target == "USD"):
-		return float64(quantity) / USD_EUR
-	case (original == "USD" && target == "EUR"):
-		return float64(quantity) * USD_EUR
-	case (original == "USD" && target == "RUB"):
-		return float64(quantity) * USD_RUB
-	case (original == "EUR" && target == "RUB"):
-		return float64(quantity) * EUR_RUB
+	wellDivision := map[string]float64{
+		"RUB_USD": USD_RUB,
+		"RUB_EUR": EUR_RUB,
+		"EUR_USD": USD_EUR,
 	}
+
+	wellMultiplication := map[string]float64{
+		"USD_EUR": USD_EUR,
+		"USD_RUB": USD_RUB,
+		"EUR_RUB": EUR_RUB,
+	}	
+
+	Division, ok := wellDivision[original + "_" + target]
+
+	if ok {
+		return float64(quantity) / Division	
+	}
+
+	Multiplication, ok := wellMultiplication[original + "_" + target]
+
+	if ok {
+		return float64(quantity) * Multiplication
+	}	
 
 	return 0
 
