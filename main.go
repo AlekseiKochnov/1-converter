@@ -61,25 +61,15 @@ func readInput() {
 
 func calculation(quantity int, original string, target string) float64 {
 
-	wellDivision := map[string]float64{
-		"RUB_USD": USD_RUB,
-		"RUB_EUR": EUR_RUB,
-		"EUR_USD": USD_EUR,
-	}
+	wellDivision, wellMultiplication := courseData()
 
-	wellMultiplication := map[string]float64{
-		"USD_EUR": USD_EUR,
-		"USD_RUB": USD_RUB,
-		"EUR_RUB": EUR_RUB,
-	}	
-
-	Division, ok := wellDivision[original + "_" + target]
+	Division, ok := (*wellDivision)[original + "_" + target]
 
 	if ok {
 		return float64(quantity) / Division	
 	}
 
-	Multiplication, ok := wellMultiplication[original + "_" + target]
+	Multiplication, ok := (*wellMultiplication)[original + "_" + target]
 
 	if ok {
 		return float64(quantity) * Multiplication
@@ -110,4 +100,22 @@ func readQuantity(quantity *int) bool {
 	}
 
 	return false
+}
+
+func courseData() (*map[string]float64, *map[string]float64) {
+
+	wellDivision := map[string]float64{
+		"RUB_USD": USD_RUB,
+		"RUB_EUR": EUR_RUB,
+		"EUR_USD": USD_EUR,
+	}
+
+	wellMultiplication := map[string]float64{
+		"USD_EUR": USD_EUR,
+		"USD_RUB": USD_RUB,
+		"EUR_RUB": EUR_RUB,
+	}	
+
+	return &wellDivision, &wellMultiplication
+	
 }
