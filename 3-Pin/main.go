@@ -23,13 +23,14 @@ func main() {
 		fmt.Println(err)
 		return
 	}	
-	err = storage.SaveBin(data)
+
+	err = storage.SaveIF(&storage.Stor{}, data)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	js, err := file.ReadJsonFile("Bin.json")
+	js, err := file.ReadIF(&file.ReadFile{}, "Bin.json")
 	if err != nil {
 		fmt.Println(err)
 		return

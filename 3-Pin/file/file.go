@@ -6,7 +6,17 @@ import (
 	"strings"
 )
 
-func ReadJsonFile(nameFile string) ([]byte, error) {
+type ReadFile struct{}
+
+type FileServis interface{
+	ReadJsonFile(string)([]byte, error)
+}
+
+func ReadIF(f FileServis, nameFile string) ([]byte, error) {
+	return f.ReadJsonFile(nameFile)
+}
+
+func(r *ReadFile) ReadJsonFile(nameFile string) ([]byte, error) {
 
     if !strings.Contains(nameFile, ".json") {
 		return nil, errors.New("расширение файла не json")

@@ -6,7 +6,17 @@ import (
 	"os"
 )
 
-func SaveBin(data []byte) error{
+type Stor struct{}
+
+type StorageServis interface{
+	SaveBin([]byte)error
+}
+
+func SaveIF(st StorageServis, data []byte) error {
+	return st.SaveBin(data)
+}
+
+func(s *Stor) SaveBin(data []byte) error{
 
 	file, err := os.Create("Bin.json")
 	if err != nil {
