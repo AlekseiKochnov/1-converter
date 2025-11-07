@@ -6,6 +6,12 @@ import (
 	"strings"
 )
 
+var oper = map[string]func([]int){
+	"AVG": AVG,
+	"SUM": SUM,
+	"MED": MED,
+}
+
 func main() {
 
 	dataEntry()
@@ -21,18 +27,7 @@ func dataEntry() {
 		fmt.Print("Ввод операции (AVG - среднее, SUM - сумму, MED - медиану): ")
 		fmt.Scan(&operation)
 
-		bre := false
-
-		switch {
-		case operation == "AVG":
-			bre = true
-		case operation == "SUM":
-			bre = true
-		case operation == "MED":
-			bre = true
-		}
-
-		if bre {
+		if _, ok := oper[operation]; ok {
 			break
 		}
 
@@ -50,8 +45,7 @@ func dataEntry() {
 	}
 
 	slNum := splitLine(num)
-	calculationOperation(operation, slNum)
-
+	oper[operation](slNum)
 }
 
 func splitLine(str string) []int {
@@ -77,32 +71,32 @@ func splitLine(str string) []int {
 
 }
 
-func calculationOperation(operation string, num []int) {
-
+func SUM(num []int) {
 	var sum int
-
 	for _, num := range num {
 		sum += num
 	}
+	fmt.Println(sum)
+}
 
-	if operation == "SUM" {
-		fmt.Print(sum)
-	} else if operation == "AVG" {
-		fmt.Print(float64(sum) / float64(len(num)))
-	} else if operation == "MED" {
-		
-		var median float64
-		sliceLen := len(num)
-		center := sliceLen / 2
+func AVG(num []int) {
+	var sum int
+	for _, num := range num {
+		sum += num
+	}
+	fmt.Println(float64(sum) / float64(len(num)))
+}
 
-		if sliceLen%2 == 0 {
-			median = float64((num[center-1] + num[center]) / 2)
-		} else {
-			median = float64(num[center])
-		}
+func MED(num []int) {
+	var median float64
+	sliceLen := len(num)
+	center := sliceLen / 2
 
-		fmt.Println(median)
-
+	if sliceLen%2 == 0 {
+		median = float64((num[center-1] + num[center]) / 2)
+	} else {
+		median = float64(num[center])
 	}
 
+	fmt.Println(median)
 }
